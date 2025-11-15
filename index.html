@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hackathon 2026 | NIT Silchar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#000000',
+                        'secondary': '#D9D9D9',
+                        'accent': '#E23C60',
+                        'highlight': '#FFFFFF',
+                        'light': '#FFFFFF',
+                        'dark-text': '#FFFFFF',
+                    },
+                    backgroundImage: {
+                        'myntra-gradient': 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 25%, #2d1b69 50%, #1a1a2e 75%, #0f0f23 100%)',
+                        'myntra-light': 'linear-gradient(135deg, #ffffff 0%, #f8f4ff 25%, #ffe0e6 50%, #f5e6ff 75%, #ffffff 100%)',
+                        'pro-dark': 'linear-gradient(135deg, #0a0e27 0%, #1a1a3e 25%, #2d0a4e 50%, #1a0f2e 75%, #0f0420 100%)',
+                        'pro-gradient': 'linear-gradient(to bottom, #0a0e27 0%, #1a1a3e 50%, #0f0420 100%)',
+                        'card-gradient': 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(226,60,96,0.03) 100%)',
+                        'premium-dark': 'linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #0f1419 100%)',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        glow: {
+                            'from': { textShadow: '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #3671E9, 0 0 20px #3671E9' },
+                            'to': { textShadow: '0 0 10px #fff, 0 0 15px #fff, 0 0 20px #EB4A94, 0 0 25px #EB4A94' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(226, 60, 96, 0.3)' },
+                            '50%': { boxShadow: '0 0 40px rgba(226, 60, 96, 0.6)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.4",
+    "@supabase/supabase-js": "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.8/+esm"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-950 to-black dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-950 dark:to-black text-gray-800 dark:text-dark-text">
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
