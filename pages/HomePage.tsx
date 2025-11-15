@@ -158,9 +158,9 @@ const timelineEvents = [
 // Only include images that actually exist in the `assets/` folder to avoid broken images
 const sponsors = [
 
-  { name: "NIT Silchar", logo: "/assets/nit_silchar.jpg" },
+  { name: "NIT Silchar", logo: "/nit_silchar.jpg" },
  
-  { name: "Side 5", logo: "/assets/sideimage5.jpg" },
+  { name: "Side 5", logo: "/sideimage5.jpg" },
 ];
 
 const HomePage: React.FC = () => {
@@ -170,8 +170,8 @@ const HomePage: React.FC = () => {
       <div className="relative w-full h-screen overflow-hidden flex items-center justify-center">
         <ImageCarousel
           images={[
-            "/assets/nit_silchar.jpg",
-            "/assets/sideimage5.jpg",
+            "/nit_silchar.jpg",
+            "/sideimage5.jpg",
           ]}
           interval={5000}
         />
