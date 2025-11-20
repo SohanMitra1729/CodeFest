@@ -260,16 +260,16 @@ const Round1ContestPage: React.FC = () => {
                         </select>
                     </div>
                     <textarea 
-                        className="w-full h-80 bg-primary p-4 rounded-md border border-secondary focus:ring-accent focus:border-accent font-mono text-sm"
+                        className="w-full h-96 bg-gray-900/80 text-white p-4 rounded-md border border-cyan-500/20 focus:ring-4 focus:ring-cyan-500/10 focus:border-cyan-400 font-mono text-sm placeholder-gray-400"
                         placeholder="Write your code here..."
                         value={codingAnswers[question.id]?.code || ''}
                         onChange={(e) => handleCodingChange(question.id, e.target.value)}
                     />
                     <div className="flex items-center gap-4 mt-4">
-                        <button onClick={() => handleRunCode(question)} className="flex items-center justify-center bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors disabled:opacity-50" disabled={isProcessing[`run-${question.id}`] || isProcessing[`submit-${question.id}`]}>
+                        <button onClick={() => handleRunCode(question)} className="flex items-center justify-center bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded transition-colors disabled:opacity-50" disabled={isProcessing[`run-${question.id}`] || isProcessing[`submit-${question.id}`]}>
                             {isProcessing[`run-${question.id}`] && <LoadingSpinner />} Run Code
                         </button>
-                        <button onClick={() => handleSubmitCode(question)} className="flex items-center justify-center bg-gradient-to-r from-[#E23C60] to-[#F589A0] hover:from-[#F589A0] hover:to-[#E23C60] text-white font-bold py-2 px-4 rounded transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50" disabled={isProcessing[`submit-${question.id}`] || isProcessing[`run-${question.id}`]}>
+                        <button onClick={() => handleSubmitCode(question)} className="flex items-center justify-center admin-btn-gradient py-2 px-4 rounded transition-all duration-200 disabled:opacity-50" disabled={isProcessing[`submit-${question.id}`] || isProcessing[`run-${question.id}`]}>
                             {isProcessing[`submit-${question.id}`] && <LoadingSpinner />} Submit
                         </button>
                     </div>
@@ -289,8 +289,8 @@ const Round1ContestPage: React.FC = () => {
                             <h4 className="font-semibold text-white">{problemRunResult.message}</h4>
                             {problemRunResult.results.length > 0 && (
                                 <div className="space-y-2 mt-2">
-                                    {problemRunResult.results.map((res, i) => (
-                                        <div key={i} className={`p-2 rounded text-xs ${res.passed ? 'bg-[#E23C60]/20' : 'bg-red-600/20'}`}>
+                                        {problemRunResult.results.map((res, i) => (
+                                        <div key={i} className={`p-2 rounded text-xs ${res.passed ? 'bg-cyan-500/20' : 'bg-red-600/20'}`}>
                                             <p className="font-bold">Test Case {i+1}: {res.passed ? 'Passed' : 'Failed'}</p>
                                             <p><span className="font-semibold">Input:</span> <code className="font-mono">{res.input}</code></p>
                                             <p><span className="font-semibold">Your Output:</span> <code className="font-mono">{res.output ?? 'null'}</code></p>
@@ -339,7 +339,7 @@ const Round1ContestPage: React.FC = () => {
                             <a key={q.id} href={viewAll ? `#q-${index}` : undefined} onClick={() => !viewAll && setCurrentQuestionIndex(index)}
                                 className={`flex items-center justify-center h-10 w-10 rounded font-bold text-sm cursor-pointer transition-colors ${
                                     index === currentQuestionIndex && !viewAll ? 'bg-accent text-white ring-2 ring-white' :
-                                    isQuestionAnswered(q) ? 'bg-gradient-to-r from-[#E23C60] to-[#F589A0] hover:from-[#F589A0] hover:to-[#E23C60]' :
+                                    isQuestionAnswered(q) ? 'bg-gradient-to-r from-[#06B6D4] to-[#2DD4BF] hover:from-[#2DD4BF] hover:to-[#06B6D4] text-white shadow-md' :
                                     'bg-primary hover:bg-secondary/50'
                                 }`}
                             >
@@ -348,7 +348,7 @@ const Round1ContestPage: React.FC = () => {
                         ))}
                     </div>
                 </div>
-                <button onClick={() => window.confirm('Are you sure you want to finish and submit the test?') && handleSubmit()} className="w-full bg-highlight hover:bg-highlight/80 text-white font-bold py-3 px-8 rounded-lg text-lg">
+                <button onClick={() => window.confirm('Are you sure you want to finish and submit the test?') && handleSubmit()} className="w-full admin-btn-gradient text-white font-bold py-3 px-8 rounded-lg text-lg">
                     Finish & Submit Test
                 </button>
             </aside>

@@ -26,20 +26,20 @@ const ManageResults: React.FC = () => {
                 <h3 className="text-xl font-semibold admin-heading mb-4">Round 1 Submissions ({submissions.length})</h3>
                 {submissions.length > 0 ? (
                     <div className="overflow-x-auto">
-                                <table className="min-w-full">
-                                    <thead className="bg-white/3">
+                                <table className="min-w-full border border-cyan-500/20 rounded-lg overflow-hidden">
+                                    <thead className="bg-gradient-to-r from-cyan-500/10 to-cyan-400/5 border-b border-cyan-500/30">
                                         <tr>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Team Name</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Submitted At</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Score</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
+                                            <th className="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">Team Name</th>
+                                            <th className="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">Submitted At</th>
+                                            <th className="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">Score</th>
+                                            <th className="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="divide-y divide-white/6">
+                                    <tbody className="divide-y divide-cyan-500/15">
                                 {submissions.map(sub => (
-                                    <tr key={sub.teamId}>
-                                                <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-100">{getTeamName(sub.teamId)}</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-gray-300">{sub.submittedAt.toLocaleString()}</td>
+                                    <tr key={sub.teamId} className="hover:bg-cyan-500/5 transition-colors">
+                                                <td className="px-6 py-4 whitespace-nowrap font-medium text-white">{getTeamName(sub.teamId)}</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-gray-200">{sub.submittedAt.toLocaleString()}</td>
                                         <td className="px-6 py-4 whitespace-nowrap font-semibold admin-heading">
                                             {typeof sub.score === 'number' ? sub.score : 'Not Calculated'}
                                         </td>
@@ -51,7 +51,7 @@ const ManageResults: React.FC = () => {
                                             >
                                                 Calculate Score
                                             </button>
-                                            <NavLink to={`/admin/submission/${sub.teamId}`} className="text-sm bg-white/5 hover:bg-white/7 admin-heading font-bold py-1 px-3 rounded transition-colors">
+                                            <NavLink to={`/admin/submission/${sub.teamId}`} className="text-sm bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-200 hover:text-white font-bold py-1 px-3 rounded transition-colors border border-cyan-500/30">
                                                 View Details
                                             </NavLink>
                                         </td>

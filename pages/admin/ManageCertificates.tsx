@@ -31,14 +31,14 @@ const ManageCertificates: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div className="admin-surface p-8 rounded-xl">
                     <h3 className="text-xl font-semibold admin-heading mb-6">Award a New Certificate</h3>
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
                             <label htmlFor="team-select" className="block text-sm font-medium text-gray-300 mb-2">Select Team</label>
                             <select
                                 id="team-select"
                                 value={selectedTeamId}
                                 onChange={e => setSelectedTeamId(e.target.value)}
-                                className="w-full admin-input"
+                                className="w-full admin-input text-base py-3"
                             >
                                 <option value="" disabled>-- Select a team --</option>
                                 {eligibleTeams.map(team => (
@@ -52,14 +52,14 @@ const ManageCertificates: React.FC = () => {
                                 id="cert-type"
                                 value={selectedCertType}
                                 onChange={e => setSelectedCertType(e.target.value as CertificateType)}
-                                className="w-full admin-input"
+                                className="w-full admin-input text-base py-3"
                             >
                                 <option>Participation</option>
                                 <option>Appreciation</option>
                                 <option>Outstanding Performance</option>
                             </select>
                         </div>
-                        <button type="submit" className="w-full admin-btn-gradient">
+                        <button type="submit" className="w-full admin-btn-gradient py-3 text-lg font-semibold">
                             Award Certificate
                         </button>
                     </form>

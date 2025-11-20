@@ -53,22 +53,22 @@ const ManageMCQs: React.FC = () => {
                 <div className="space-y-8">
                     <div className="admin-surface p-6 rounded-xl">
                         <h3 className="text-xl font-semibold admin-heading mb-4">Add New MCQ</h3>
-                        <form onSubmit={handleAddMcq} className="space-y-4">
-                            <textarea value={newMcqQuestion} onChange={e => setNewMcqQuestion(e.target.value)} placeholder="Question Text" required className="w-full admin-input" />
+                        <form onSubmit={handleAddMcq} className="space-y-5">
+                            <textarea value={newMcqQuestion} onChange={e => setNewMcqQuestion(e.target.value)} placeholder="Question Text" required className="w-full admin-input min-h-32 text-lg" />
                             {newMcqOptions.map((opt, index) => (
-                                <div key={opt.id} className="flex items-center gap-2">
-                                    <input type="radio" name="correctAnswer" value={opt.id} checked={correctAnswerId === opt.id} onChange={(e) => setCorrectAnswerId(e.target.value)} className="accent-[#E23C60]" />
-                                    <input type="text" value={opt.text} onChange={e => handleOptionTextChange(opt.id, e.target.value)} placeholder={`Option ${opt.id.toUpperCase()}`} required className="flex-grow admin-input" />
+                                <div key={opt.id} className="flex items-center gap-3">
+                                    <input type="radio" name="correctAnswer" value={opt.id} checked={correctAnswerId === opt.id} onChange={(e) => setCorrectAnswerId(e.target.value)} className="accent-[#06B6D4] w-5 h-5 cursor-pointer" />
+                                    <input type="text" value={opt.text} onChange={e => handleOptionTextChange(opt.id, e.target.value)} placeholder={`Option ${opt.id.toUpperCase()}`} required className="flex-grow admin-input text-base py-3" />
                                 </div>
                             ))}
                             <button type="button" onClick={handleAddOption} disabled={newMcqOptions.length >= 4} className="text-sm admin-heading disabled:opacity-50">+ Add Option</button>
-                             <button type="submit" className="w-full admin-btn-gradient">Add MCQ</button>
+                             <button type="submit" className="w-full admin-btn-gradient py-3 text-lg font-semibold">Add MCQ</button>
                         </form>
                     </div>
                             <div className="admin-surface p-6 rounded-xl">
                                 <h3 className="text-xl font-semibold admin-heading mb-4">Existing MCQs ({mcqs.length})</h3>
                         <ul className="space-y-2 text-sm">
-                            {mcqs.map(mcq => <li key={mcq.id} className="p-2 bg-white/5 rounded">{mcq.question}</li>)}
+                            {mcqs.map(mcq => <li key={mcq.id} className="p-3 bg-white text-gray-800 rounded border border-gray-200 hover:border-cyan-400 hover:shadow-sm transition-all">{mcq.question}</li>)}
                         </ul>
                     </div>
                 </div>
@@ -77,16 +77,16 @@ const ManageMCQs: React.FC = () => {
                 <div className="space-y-8">
                     <div className="admin-surface p-6 rounded-xl">
                         <h3 className="text-xl font-semibold admin-heading mb-4">Add New Coding Problem</h3>
-                        <form onSubmit={handleAddCodingProblem} className="space-y-4">
-                             <input type="text" value={newProblemTitle} onChange={e => setNewProblemTitle(e.target.value)} placeholder="Problem Title" required className="w-full admin-input" />
-                            <textarea value={newProblemDesc} onChange={e => setNewProblemDesc(e.target.value)} placeholder="Problem Description" required rows={4} className="w-full admin-input" />
-                            <button type="submit" className="w-full admin-btn-gradient">Add Coding Problem</button>
+                        <form onSubmit={handleAddCodingProblem} className="space-y-5">
+                             <input type="text" value={newProblemTitle} onChange={e => setNewProblemTitle(e.target.value)} placeholder="Problem Title" required className="w-full admin-input text-base py-3 text-lg" />
+                            <textarea value={newProblemDesc} onChange={e => setNewProblemDesc(e.target.value)} placeholder="Problem Description" required rows={6} className="w-full admin-input text-base min-h-40 text-lg" />
+                            <button type="submit" className="w-full admin-btn-gradient py-3 text-lg font-semibold">Add Coding Problem</button>
                         </form>
                     </div>
                     <div className="admin-surface p-6 rounded-xl">
                         <h3 className="text-xl font-semibold admin-heading mb-4">Existing Coding Problems ({codingProblems.length})</h3>
                         <ul className="space-y-2 text-sm">
-                            {codingProblems.map(p => <li key={p.id} className="p-2 bg-white/5 rounded">{p.title}</li>)}
+                            {codingProblems.map(p => <li key={p.id} className="p-3 bg-white text-gray-800 rounded border border-gray-200 hover:border-cyan-400 hover:shadow-sm transition-all">{p.title}</li>)}
                         </ul>
                     </div>
                 </div>

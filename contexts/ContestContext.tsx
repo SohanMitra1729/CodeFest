@@ -1,4 +1,5 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useEffect } from 'react';
+import { supabase } from '../lib/supabaseClient';
 import { Round, MCQ, CodingProblem, Round1Submission, ContestContextType, Round2Problem, Certificate, CertificateType } from '../types';
 import { mockRounds, mockMCQs, mockCodingProblems, mockSubmissions, mockRound2Problem, mockCertificates } from '../data/mockData';
 
@@ -18,31 +19,80 @@ export const ContestProvider: React.FC<ContestProviderProps> = ({ children }) =>
     const [round2Problem, setRound2Problem] = useState<Round2Problem>(mockRound2Problem);
     const [certificates, setCertificates] = useState<Certificate[]>(mockCertificates);
 
-   const startRound = (roundId: number) => {
-    setRounds(prev =>
-        prev.map(r =>
-            r.id === roundId
-                ? {
-                    ...r,
-                    status: 'Active',
-                    startedAt: new Date().toISOString()  
+     // Load rounds from Supabase (if configured) to replace mock data
+     useEffect(() => {
+        const fetchRounds = async () => {
+            try {
+                const { data, error } = await supabase.from('rounds').select('*').order('id', { ascending: true });
+                if (error) {
+                    console.warn('Failed to load rounds from Supabase, using mocks.', error.message);
+                    return;
                 }
-                : r
-        )
-    );
-};
 
+                if (data && Array.isArray(data)) {
+                    // Map possible snake_case DB columns to camelCase Round type
+                    const parsed: Round[] = data.map((r: any) => ({
+                        id: r.id,
+                        name: r.name,
+                        status: r.status,
+                        startedAt: r.started_at || r.startedAt,
+                        durationInMinutes: r.duration_in_minutes || r.durationInMinutes,
+                    }));
+                    setRounds(parsed);
+                }
+            } catch (e) {
+                console.warn('Error fetching rounds from Supabase, using mocks.', e);
+            }
+        };
 
-    const endRound = (roundId: number) => {
-        setRounds(prev => prev.map(r => r.id === roundId ? { ...r, status: 'Finished' } : r));
-        if (roundId === 1) { // Unlock round 2
-            setRounds(prev => prev.map(r => r.id === 2 ? { ...r, status: 'Not Started' } : r));
+        fetchRounds();
+    }, []);
+
+    const startRound = async (roundId: number) => {
+        // optimistic update
+        setRounds(prev => prev.map(r => r.id === roundId ? { ...r, status: 'Active', startedAt: new Date().toISOString() } : r));
+
+        try {
+            const { error } = await supabase.from('rounds').update({ status: 'Active', started_at: new Date().toISOString() }).eq('id', roundId);
+            if (error) {
+                console.error('Failed to persist startRound to Supabase', error.message);
+            }
+        } catch (e) {
+            console.error('Error calling Supabase for startRound', e);
         }
     };
+
+
+        const endRound = async (roundId: number) => {
+                // optimistic update
+                setRounds(prev => prev.map(r => r.id === roundId ? { ...r, status: 'Finished' } : r));
+                if (roundId === 1) { // Unlock round 2
+                        setRounds(prev => prev.map(r => r.id === 2 ? { ...r, status: 'Not Started' } : r));
+                }
+
+                try {
+                    const { error } = await supabase.from('rounds').update({ status: 'Finished' }).eq('id', roundId);
+                    if (error) console.error('Failed to persist endRound', error.message);
+                    if (roundId === 1) {
+                        const { error: e2 } = await supabase.from('rounds').update({ status: 'Not Started' }).eq('id', 2);
+                        if (e2) console.error('Failed to unlock round 2', e2.message);
+                    }
+                } catch (e) {
+                    console.error('Error calling Supabase for endRound', e);
+                }
+        };
     
-    const setRoundDuration = (roundId: number, duration: number) => {
-        setRounds(prev => prev.map(r => r.id === roundId ? { ...r, durationInMinutes: duration } : r));
-    };
+        const setRoundDuration = async (roundId: number, duration: number) => {
+                // optimistic update
+                setRounds(prev => prev.map(r => r.id === roundId ? { ...r, durationInMinutes: duration } : r));
+
+                try {
+                    const { error } = await supabase.from('rounds').update({ duration_in_minutes: duration }).eq('id', roundId);
+                    if (error) console.error('Failed to persist setRoundDuration', error.message);
+                } catch (e) {
+                    console.error('Error calling Supabase for setRoundDuration', e);
+                }
+        };
 
     const addMcq = (mcq: Omit<MCQ, 'id'>) => {
         const newMcq = { ...mcq, id: `mcq-${Date.now()}` };

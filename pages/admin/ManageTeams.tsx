@@ -82,16 +82,16 @@ const TeamCard: React.FC<{ team: Team }> = ({ team }) => {
             case 'Pending':
                 return 'admin-badge';
             case 'Rejected':
-                return 'bg-red-600/20 text-red-400';
+                return 'bg-red-500/20 text-red-400';
         }
     };
     
     return (
-        <details className="admin-surface rounded-lg shadow-lg overflow-hidden">
-            <summary className="p-6 cursor-pointer flex justify-between items-center">
+        <details className="admin-surface rounded-lg shadow-lg overflow-hidden border border-cyan-500/30 hover:border-cyan-500/60 transition-colors">
+            <summary className="p-6 cursor-pointer flex justify-between items-center bg-gradient-to-r from-cyan-500/5 to-transparent hover:from-cyan-500/10">
                 <div>
-                    <h3 className="text-xl font-semibold text-gray-800">{team.name}</h3>
-                    <p className="text-sm text-gray-600">{team.college}</p>
+                    <h3 className="text-xl font-semibold text-white">{team.name}</h3>
+                    <p className="text-sm text-gray-300">{team.college}</p>
                 </div>
                 <div className="flex items-center gap-4">
                      <span className={`px-3 py-1 text-xs font-semibold rounded-full ${getStatusClasses(team.status)}`}>
@@ -101,15 +101,15 @@ const TeamCard: React.FC<{ team: Team }> = ({ team }) => {
                 </div>
             </summary>
             <div className="p-6 border-t border-white/6 bg-transparent">
-                <h4 className="font-semibold text-gray-800 mb-4">Team Members:</h4>
+                <h4 className="font-semibold text-white mb-4">Team Members:</h4>
                 <ul className="space-y-3">
                     {team.members.map(member => (
                                 <li key={member.id} className="flex justify-between items-center text-sm">
                             <div>
-                                <p className="font-medium text-gray-800">{member.name}</p>
-                                <p className="text-gray-500">{member.email}</p>
+                                <p className="font-medium text-white">{member.name}</p>
+                                <p className="text-gray-400">{member.email}</p>
                             </div>
-                            <span className={`px-2 py-1 text-xs rounded-full ${member.role === 'Leader' ? 'bg-gray-200 text-gray-700' : 'admin-badge'}`}>
+                            <span className={`px-2 py-1 text-xs rounded-full ${member.role === 'Leader' ? 'bg-cyan-500/20 text-cyan-300' : 'admin-badge'}`}>
                                 {member.role}
                             </span>
                         </li>
@@ -117,7 +117,7 @@ const TeamCard: React.FC<{ team: Team }> = ({ team }) => {
                 </ul>
                  <div className="mt-4 pt-4 border-t border-white/6 flex justify-between items-center">
                     <div>
-                        <h4 className="font-semibold text-gray-800 mb-2">Payment Screenshot:</h4>
+                        <h4 className="font-semibold text-white mb-2">Payment Screenshot:</h4>
                         {team.paymentScreenshotUrl ? (
                             <ScreenshotPreview path={team.paymentScreenshotUrl} />
                         ) : (
@@ -134,7 +134,7 @@ const TeamCard: React.FC<{ team: Team }> = ({ team }) => {
                             </button>
                              <button
                                 onClick={() => rejectTeam(team.id)}
-                                className="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm transition-colors"
+                                className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded text-sm transition-colors"
                             >
                                 Reject
                             </button>
@@ -176,7 +176,7 @@ const ManageTeams: React.FC = () => {
             className={`px-4 py-2 rounded-full font-semibold transition-colors text-sm ${
                 filter === status
                     ? 'admin-btn-gradient text-white'
-                    : 'bg-white/70 text-gray-800 hover:bg-gray-100'
+                    : 'bg-white/10 text-gray-300 hover:bg-white/20'
             }`}
         >
             {status} ({getCount(status)})
@@ -194,7 +194,7 @@ const ManageTeams: React.FC = () => {
                     <FilterButton status="All" />
                 </div>
             
-            <h2 className="text-2xl font-semibold text-gray-200 mb-6">{filter} Teams ({filteredTeams.length})</h2>
+            <h2 className="text-2xl font-semibold text-white mb-6">{filter} Teams ({filteredTeams.length})</h2>
 
             {filteredTeams.length > 0 ? (
                 <div className="space-y-6">

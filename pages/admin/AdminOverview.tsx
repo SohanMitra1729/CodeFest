@@ -18,15 +18,15 @@ const AdminOverview: React.FC = () => {
             <h1 className="text-4xl font-bold admin-heading mb-8">Admin Overview</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {stats.map(stat => (
-                    <div key={stat.label} className="group admin-surface p-6 rounded-xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer">
-                        <h3 className="text-sm font-medium text-gray-300 transition-colors">{stat.label}</h3>
+                    <div key={stat.label} className="group admin-surface p-6 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-cyan-500/30 hover:scale-105 transition-all duration-300 cursor-pointer border border-cyan-500/20 hover:border-cyan-500/50">
+                        <h3 className="text-sm font-medium text-gray-200 transition-colors group-hover:text-white">{stat.label}</h3>
                         <p className="mt-2 text-3xl font-semibold admin-heading">{stat.value}</p>
                     </div>
                 ))}
             </div>
-            <div className="mt-12 admin-surface p-6 rounded-xl shadow-lg">
+            <div className="mt-12 admin-surface p-6 rounded-xl shadow-lg border border-cyan-500/20">
                 <h2 className="text-xl font-bold admin-heading">Quick Actions</h2>
-                <p className="text-gray-300 mt-2">Use the sidebar to manage rounds, add content, calculate results, and award certificates.</p>
+                <p className="text-gray-200 mt-2">Use the sidebar to manage rounds, add content, calculate results, and award certificates.</p>
             </div>
         </div>
     );
